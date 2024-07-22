@@ -4,5 +4,5 @@
 @tailwind utilities;
 
 body * {
-    @apply transition-all duration-700;
+    @apply transition-colors duration-200;
 }

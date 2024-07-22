@@ -5,7 +5,7 @@ function Navbar(){
         <header className="flex h-16 w-full items-center justify-between bg-background px-4 md:px-6 shadow-lg shadow-sm shadow-slate-500 mb-5 dark:shadow-slate-200 ">
           
             
-            <span className="text-lg font-semibold flex flex-row gap-3 dark:text-white text-black"><MountainIcon className="h-6 w-6 text-black dark:text-white" /> CSARCH2 Simulation Project - Unicode Converter </span>
+            <span className="text-lg font-semibold flex flex-row gap-3 dark:text-white text-black"><Icon className="h-6 w-6 text-black dark:text-white" /> CSARCH2 Simulation Project - Unicode Converter </span>
             <ToggleDark className="dark:text-white"/>    
 
 
@@ -14,7 +14,7 @@ function Navbar(){
 }
 
 //TODO: Make a Logo
-function MountainIcon(props) {
+function Icon(props) {
     return (
       <svg
         {...props}
