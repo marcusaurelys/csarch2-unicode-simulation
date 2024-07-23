@@ -1,6 +1,21 @@
 import { useState } from "react";
 import Input from "./Input";
 
+function checkValid(unicode){
+
+  const invalidHex = /[^1234567890abcdef]/i.test(unicode);
+  if (invalidHex) {
+    return false
+  }
+
+  try{
+    String.fromCodePoint(parseInt(unicode, 16))
+  } catch(e) {
+    return false
+  }
+  return true
+}
+
 function unicodeToUTF8(unicode) {
   return unicode;
 }
@@ -9,8 +24,39 @@ function unicodeToUTF16(unicode) {
   return unicode;
 }
 
-function unicodeToUTF32(unicode) {
-  return unicode;
+
+/**
+ * Converts an input unicode (as string) to its UTF-32 encoding, as string
+ * @param {string} input
+ * @returns { string } equivalent UTF-32 encoding as string.
+ */
+function unicodeToUTF32(input) {
+  let unicode = input
+
+  if(unicode.length == 0){
+    return ''
+  }
+
+  if(!checkValid(unicode)){
+    return 'invalid'
+  }
+  
+  let result = []
+
+  //zero extend unicode to 32 bits
+  while(unicode.length < 8){
+    unicode = "0" + unicode
+  }
+  console.log(unicode)
+  
+  //group unicode into two characters each then push to result
+  for(let i = 0; i < 8; i+=2){
+    result.push(unicode.slice(i,i+2))
+  }
+  
+  //convert result to string then return
+  return result.join(' ').toUpperCase()
+
 }
 
 function unicodeToChar(unicode) {
