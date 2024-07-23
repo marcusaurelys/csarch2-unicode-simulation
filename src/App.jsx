@@ -22,8 +22,9 @@ function App() {
 
       <div className="md:w-3/5 flex-grow px-14">
           <IO/>
-        </div>
-      </main>
+      </div>
+    
+    </main>
     </div>
   )
 }
