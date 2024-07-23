@@ -20,7 +20,7 @@ function App() {
         <Instructions/>
       </div>
 
-      <div className="md:w-3/5 flex-grow p-14">
+      <div className="md:w-3/5 flex-grow px-14">
           <IO/>
         </div>
       </main>
