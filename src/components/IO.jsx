@@ -33,6 +33,10 @@ function binaryStringToHex(binaryStr) {
 function unicodeToUTF8(unicode) {
   let res = [];
 
+  if (checkValid(unicode) == false) {
+    return "invalid";
+  }
+
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0x7F) {
@@ -62,6 +66,11 @@ function unicodeToUTF8(unicode) {
 }
 
 function unicodeToUTF16(unicode) {
+
+  if (checkValid(unicode) == false) {
+    return "invalid";
+  }
+
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0xFFFF) {
