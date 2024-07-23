@@ -60,7 +60,7 @@ function IO(){
                 <Input label="Unicode" placeholder='U+XXXXXXXX' value= {unicode} onChange={(e) => e.target.value.startsWith('U+') && setInput(e.target.value.slice(2))}/>
             </div>
             <div>
-            <Input label="Symbol" placeholder='' value={symbol} onChange={(e) => setInput(charToUnicode(e.target.value))}/>
+            <Input label="Symbol" placeholder='' type="textarea" value={symbol} onChange={(e) => setInput(charToUnicode(e.target.value))}/>
             </div>
         </div>
           <p className="font-bold mb-3 text-3xl flex items-center gap-3"> Output <button title="Copy All"><ClipboardIcon/></button> </p> 
