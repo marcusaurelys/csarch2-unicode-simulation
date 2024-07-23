@@ -33,6 +33,8 @@ function binaryStringToHex(binaryStr) {
 function unicodeToUTF8(unicode) {
   let res = [];
 
+  unicode = parseInt(unicode, 16).toString(16)
+
   if (checkValid(unicode) == false) {
     return "invalid";
   }
@@ -66,6 +68,8 @@ function unicodeToUTF8(unicode) {
 }
 
 function unicodeToUTF16(unicode) {
+
+  unicode = parseInt(unicode, 16).toString(16)
 
   if (checkValid(unicode) == false) {
     return "invalid";
