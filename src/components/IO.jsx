@@ -42,7 +42,7 @@ function unicodeToUTF8(unicode) {
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0x7F) {
-    return unicode;
+    return unicode.padStart(2, '0').toUpperCase();
   } else if (parseInt(unicode, 16) <= 0x7FF) {
     let binary = parseInt(unicode, 16).toString(2).padStart(11, '0');
     res.push('110' + binary.slice(0, 5));
