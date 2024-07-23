@@ -41,6 +41,8 @@ function unicodeToUTF32(input) {
     return 'invalid'
   }
   
+  unicode = parseInt(unicode, 16).toString(16) //this will remove leading 0's
+
   let result = []
 
   //zero extend unicode to 32 bits
