@@ -5,7 +5,6 @@ function Input({
   value,
   onChange,
   disabled,
-  decoration,
 }) {
   return (
     <div className="mb-4">
