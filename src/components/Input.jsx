@@ -3,7 +3,7 @@ function Input({label, type="text", placeholder="enter text", value, onChange, d
     
     return (
             <div className="mb-4">
-            {label && <label className="block text-gray-700 text-sm font-bold dark:text-white">{label}</label>}
+            {label && <label className="block text-black text-sm font-bold dark:text-white">{label}</label>}
               <input
                 type={type}
                 placeholder={placeholder}
