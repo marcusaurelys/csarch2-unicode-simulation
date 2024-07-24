@@ -31,6 +31,11 @@ function binaryStringToHex(binaryStr) {
 }
 
 function unicodeToUTF8(unicode) {
+
+  if(unicode === ''){
+    return ''
+  }
+
   let res = [];
 
   unicode = parseInt(unicode, 16).toString(16)
@@ -69,7 +74,12 @@ function unicodeToUTF8(unicode) {
 
 function unicodeToUTF16(unicode) {
 
+  if(unicode === ''){
+    return ''
+  }
+
   unicode = parseInt(unicode, 16).toString(16)
+
 
   if (checkValid(unicode) == false) {
     return "invalid";
@@ -116,10 +126,8 @@ function unicodeToUTF32(input) {
   let result = []
 
   //zero extend unicode to 32 bits
-  while (unicode.length < 8) {
-    unicode = "0" + unicode
-  }
-  console.log(unicode)
+  unicode = unicode.padStart(8 - unicode.length, '0')
+
 
   //group unicode into two characters each then push to result
   for (let i = 0; i < 8; i += 2) {
