@@ -126,7 +126,7 @@ function unicodeToUTF32(input) {
   let result = []
 
   //zero extend unicode to 32 bits
-  unicode = unicode.padStart(8 - unicode.length, '0')
+  unicode = unicode.padStart(8, '0')
 
 
   //group unicode into two characters each then push to result
