@@ -36,18 +36,23 @@ function unicodeToUTF8(unicode) {
     return ''
   }
 
-  let res = [];
-
-  unicode = parseInt(unicode, 16).toString(16)
-
   if (checkValid(unicode) == false) {
     return "invalid";
   }
 
+  let res = [];
+
+  unicode = parseInt(unicode, 16).toString(16)
+
+
+
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0x7F) {
-    return unicode.padStart(2, '0').toUpperCase();
+    let binary = unicode.padStart(4, '0').toUpperCase();
+    res.push(binary.slice(0,2))
+    res.push(binary.slice(2,4))
+    return res.join(' ')
   } else if (parseInt(unicode, 16) <= 0x7FF) {
     let binary = parseInt(unicode, 16).toString(2).padStart(11, '0');
     res.push('110' + binary.slice(0, 5));
@@ -74,21 +79,26 @@ function unicodeToUTF8(unicode) {
 
 function unicodeToUTF16(unicode) {
 
+  
   if(unicode === ''){
     return ''
   }
-
-  unicode = parseInt(unicode, 16).toString(16)
-
-
+  
   if (checkValid(unicode) == false) {
     return "invalid";
   }
 
+
+  unicode = parseInt(unicode, 16).toString(16)  
+
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0xFFFF) {
-    return unicode.padStart(4, '0').toUpperCase();
+    let res = []
+    unicode = unicode.padStart(4, '0');
+    res.push(unicode.slice(0,2))
+    res.push(unicode.slice(2,4))
+    return res.join(' ')
   } else if (parseInt(unicode, 16) <= 0x10FFFF) {
     let res = []
     let hex = parseInt(unicode, 16) - 0x10000;
