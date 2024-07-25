@@ -49,7 +49,7 @@ function unicodeToUTF8(unicode) {
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0x7F) {
-    let binary = unicode.padStart(4, '0').toUpperCase();
+    let binary = unicode.padStart(2, '0').toUpperCase();
     res.push(binary.slice(0,2))
     res.push(binary.slice(2,4))
     return res.join(' ')
@@ -98,7 +98,7 @@ function unicodeToUTF16(unicode) {
     unicode = unicode.padStart(4, '0');
     res.push(unicode.slice(0,2))
     res.push(unicode.slice(2,4))
-    return res.join(' ')
+    return res.join(' ').toUpperCase()
   } else if (parseInt(unicode, 16) <= 0x10FFFF) {
     let res = []
     let hex = parseInt(unicode, 16) - 0x10000;
