@@ -15,7 +15,7 @@ function checkValid(unicode) {
     return false
   }
   
-  if (parseInt(unicode, 16) > 0x10FFF || parseInt(unicode, 16) < 0){
+  if (parseInt(unicode, 16) > 0x10FFFF || parseInt(unicode, 16) < 0){
     return false
   }
 
@@ -208,13 +208,13 @@ function IO() {
       </div>
       <p className="font-bold mb-3 text-3xl flex items-center gap-3">
         Output
-        <button title="Copy All" onClick={() => { navigator.clipboard.writeText(formattedUTF(unicode, utf8, utf16, utf32)) }}>
+        <button title="Copy All" onClick={() => { input.length != 0 &&  navigator.clipboard.writeText(formattedUTF(unicode, utf8, utf16, utf32)) }}>
           <ClipboardIcon />
         </button>
       </p>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-8 Output" onClick={() => {navigator.clipboard.writeText(utf8)}}>
+        <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && navigator.clipboard.writeText(utf8)}}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -228,7 +228,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-16 Output" onClick={() => navigator.clipboard.writeText(utf16)}>
+        <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && navigator.clipboard.writeText(utf16)}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -242,7 +242,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-32 Output" onClick={() => navigator.clipboard.writeText(utf32)}>
+        <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && navigator.clipboard.writeText(utf32)}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
