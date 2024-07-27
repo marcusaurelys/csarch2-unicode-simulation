@@ -2,21 +2,32 @@ import { useState } from "react";
 import Input from "./Input";
 import { parse } from "postcss";
 
+/**
+ * Checks if the input string is a valid unicode point
+ * @param {string} unicode unicode point to be verified
+ * @returns true if unicode is valid, false if unicode is invalid
+ */
 function checkValid(unicode) {
 
+  // this block will check if the string contains all valid hex digits 0-9, a-f.
   const invalidHex = /[^1234567890abcdef]/i.test(unicode);
   if (invalidHex) {
     return false
   }
-
-  try {
-    String.fromCodePoint(parseInt(unicode, 16))
-  } catch (e) {
+  
+  if (parseInt(unicode, 16) > 0x10FFF || parseInt(unicode, 16) < 0){
     return false
   }
-  return true
+
+  return true //return true if all tests are passed.
+
 }
 
+/**
+ * Converts a binary representation to hex representation
+ * @param {string} binaryStr binary representation of a number as a string.
+ * @returns hex representation of a string.
+ */
 function binaryStringToHex(binaryStr) {
   // Pad the binary string to make its length a multiple of 4
   const paddedBinaryStr = binaryStr.padStart(Math.ceil(binaryStr.length / 4) * 4, '0');
@@ -30,6 +41,11 @@ function binaryStringToHex(binaryStr) {
   return hexString.toUpperCase();
 }
 
+/**
+ * Converts a unicode point to its UTF-8 encoding. returns 'invalid' if the code point is invalid.
+ * @param {string} unicode 
+ * @returns unicode point in UTF-8.
+ */
 function unicodeToUTF8(unicode) {
 
   if(unicode === ''){
@@ -77,6 +93,11 @@ function unicodeToUTF8(unicode) {
   return utf8;
 }
 
+/**
+ * Converts a unicode point to its UTF-16 encoding. returns 'invalid' if the code point is invalid.
+ * @param {string} unicode code point in string
+ * @returns unicode point in UTF-16 encoding as a string.
+ */
 function unicodeToUTF16(unicode) {
 
   
@@ -149,43 +170,21 @@ function unicodeToUTF32(input) {
 
 }
 
-function unicodeToChar(unicode) {
-  //Test the string for invalid input.
-  const invalidHex = /[^1234567890abcdef]/i.test(unicode);
-  if (invalidHex) {
-    return "invalid";
-  }
-
-  //convert hex to character
-  try {
-    if (unicode.length == 0) {
-      return "";
-    }
-    return String.fromCodePoint(parseInt(unicode, 16));
-  } catch (e) {
-    return "invalid";
-  }
-}
-
-function charToUnicode(symbol) {
-  try {
-    if (symbol.length == 0) {
-      return "";
-    }
-    return symbol.codePointAt(0).toString(16).toUpperCase();
-  } catch (e) {
-    return "invalid";
-  }
-}
-
-function formattedUTF(unicode, symbol, utf8, utf16, utf32) {
-  return "Unicode: " + unicode + "\n" + "Symbol: " + symbol + "\n" + "UTF-8: " + utf8 + "\n" + "UTF-16: " + utf16 + "\n" + "UTF-32: " + utf32;
+/**
+ * Creates a format string with all pertinent information for pasting.
+ * @param {string} unicode 
+ * @param {string} utf8 
+ * @param {string} utf16 
+ * @param {string} utf32 
+ * @returns a formatted string that contains the Unicode point and its corresponding utf-8, utf-16, and utf-32 encodings.
+ */
+function formattedUTF(unicode, utf8, utf16, utf32) {
+  return "Unicode: " + unicode + "\n" + "UTF-8: " + utf8 + "\n" + "UTF-16: " + utf16 + "\n" + "UTF-32: " + utf32;
 }
 
 function IO() {
   const [input, setInput] = useState("");
   const unicode = `U+${input}`;
-  const symbol = unicodeToChar(input);
   const utf8 = unicodeToUTF8(input);
   const utf16 = unicodeToUTF16(input);
   const utf32 = unicodeToUTF32(input);
@@ -194,7 +193,7 @@ function IO() {
     <>
       <p className="font-bold text-3xl mb-3"> Input </p>
       <div className="flex gap-3">
-        <div className="w-11/12">
+        <div className="w-full">
           <Input
             label="Unicode"
             placeholder="U+XXXXXXXX"
@@ -205,25 +204,17 @@ function IO() {
             }
           />
         </div>
-        <div>
-          <Input
-            label="Symbol"
-            placeholder=""
-            type="textarea"
-            value={symbol}
-            onChange={(e) => setInput(charToUnicode(e.target.value))}
-          />
-        </div>
+
       </div>
       <p className="font-bold mb-3 text-3xl flex items-center gap-3">
         Output
-        <button title="Copy All" onClick={() => { navigator.clipboard.writeText(formattedUTF(unicode, symbol, utf8, utf16, utf32)) }}>
+        <button title="Copy All" onClick={() => { navigator.clipboard.writeText(formattedUTF(unicode, utf8, utf16, utf32)) }}>
           <ClipboardIcon />
         </button>
       </p>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-8 Output">
+        <button title="Copy UTF-8 Output" onClick={() => {navigator.clipboard.writeText(utf8)}}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -237,7 +228,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-16 Output">
+        <button title="Copy UTF-16 Output" onClick={() => navigator.clipboard.writeText(utf16)}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -251,7 +242,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-32 Output">
+        <button title="Copy UTF-32 Output" onClick={() => navigator.clipboard.writeText(utf32)}>
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
