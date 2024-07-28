@@ -217,15 +217,17 @@ function IO() {
       </div>
       <p className="font-bold mb-3 text-3xl flex items-center gap-3">
         Output
-        <button title="Copy All" onClick={() => { input.length != 0 && copyToClipboard(formattedUTF(unicode, utf8, utf16, utf32)) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
-          <ClipboardIcon />
-        </button>
+        {input.length != 0 && (utf8 != 'invalid' && utf16 != 'invalid' && utf32 != 'invalid') ? (
+          <button title="Copy All" onClick={() => { input.length != 0 && copyToClipboard(formattedUTF(unicode, utf8, utf16, utf32)) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
+            <ClipboardIcon />
+          </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
       </p>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && copyToClipboard(utf8) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
-          <ClipboardIcon />
-        </button>
+        {input.length != 0 && (utf8 != 'invalid') ? (
+          <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && copyToClipboard(utf8) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
+            <ClipboardIcon />
+          </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
         <div className="flex-grow">
           <Input
             label="UTF-8"
@@ -237,9 +239,10 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && copyToClipboard(utf16)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
-          <ClipboardIcon />
-        </button>
+        {input.length != 0 && (utf16 != 'invalid') ? (
+          <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && copyToClipboard(utf16)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
+            <ClipboardIcon />
+          </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
         <div className="flex-grow">
           <Input
             label="UTF-16"
@@ -251,9 +254,10 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && copyToClipboard(utf32)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
-          <ClipboardIcon />
-        </button>
+        {input.length != 0 && (utf32 != 'invalid') ? (
+          <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && copyToClipboard(utf32)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
+            <ClipboardIcon />
+          </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
         <div className="flex-grow">
           <Input
             label="UTF-32"
