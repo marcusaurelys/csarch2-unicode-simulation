@@ -10,8 +10,7 @@ function Instructions() {
       <ol type="1" className="list-disc pl-9">
         <li>
           {" "}
-          Input can be the symbol itself or the Unicode (in hexadecimal) for the
-          symbol. Just be sure to place the input in the correct field.
+          Input must be Unicode in hexadecimal.
         </li>
         <li> Outputs are generated as you type the input. </li>
         <li>
