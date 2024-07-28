@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "./Input";
 import { parse } from "postcss";
-
+import Popup from './Popup';
 /**
  * Checks if the input string is a valid unicode point
  * @param {string} unicode unicode point to be verified
@@ -14,8 +14,8 @@ function checkValid(unicode) {
   if (invalidHex) {
     return false
   }
-  
-  if (parseInt(unicode, 16) > 0x10FFFF || parseInt(unicode, 16) < 0){
+
+  if (parseInt(unicode, 16) > 0x10FFFF || parseInt(unicode, 16) < 0) {
     return false
   }
 
@@ -48,7 +48,7 @@ function binaryStringToHex(binaryStr) {
  */
 function unicodeToUTF8(unicode) {
 
-  if(unicode === ''){
+  if (unicode === '') {
     return ''
   }
 
@@ -66,8 +66,8 @@ function unicodeToUTF8(unicode) {
     return '';
   } else if (parseInt(unicode, 16) <= 0x7F) {
     let binary = unicode.padStart(2, '0').toUpperCase();
-    res.push(binary.slice(0,2))
-    res.push(binary.slice(2,4))
+    res.push(binary.slice(0, 2))
+    res.push(binary.slice(2, 4))
     return res.join(' ')
   } else if (parseInt(unicode, 16) <= 0x7FF) {
     let binary = parseInt(unicode, 16).toString(2).padStart(11, '0');
@@ -100,25 +100,25 @@ function unicodeToUTF8(unicode) {
  */
 function unicodeToUTF16(unicode) {
 
-  
-  if(unicode === ''){
+
+  if (unicode === '') {
     return ''
   }
-  
+
   if (checkValid(unicode) == false) {
     return "invalid";
   }
 
 
-  unicode = parseInt(unicode, 16).toString(16)  
+  unicode = parseInt(unicode, 16).toString(16)
 
   if (unicode.length == 0) {
     return '';
   } else if (parseInt(unicode, 16) <= 0xFFFF) {
     let res = []
     unicode = unicode.padStart(4, '0');
-    res.push(unicode.slice(0,2))
-    res.push(unicode.slice(2,4))
+    res.push(unicode.slice(0, 2))
+    res.push(unicode.slice(2, 4))
     return res.join(' ').toUpperCase()
   } else if (parseInt(unicode, 16) <= 0x10FFFF) {
     let res = []
@@ -188,6 +188,15 @@ function IO() {
   const utf8 = unicodeToUTF8(input);
   const utf16 = unicodeToUTF16(input);
   const utf32 = unicodeToUTF32(input);
+  const [clipboardFeedback, setClipboardFeedback] = useState(false);
+
+  const copyToClipboard = (text) => {
+    setClipboardFeedback(true);
+    navigator.clipboard.writeText(text);
+    setTimeout(() => {
+      setClipboardFeedback(false);
+    }, 3000);
+  }
 
   return (
     <>
@@ -208,13 +217,13 @@ function IO() {
       </div>
       <p className="font-bold mb-3 text-3xl flex items-center gap-3">
         Output
-        <button title="Copy All" onClick={() => { input.length != 0 &&  navigator.clipboard.writeText(formattedUTF(unicode, utf8, utf16, utf32)) }}>
+        <button title="Copy All" onClick={() => { input.length != 0 && copyToClipboard(formattedUTF(unicode, utf8, utf16, utf32)) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
           <ClipboardIcon />
         </button>
       </p>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && navigator.clipboard.writeText(utf8)}}>
+        <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && copyToClipboard(utf8) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -228,7 +237,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && navigator.clipboard.writeText(utf16)}>
+        <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && copyToClipboard(utf16)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -242,7 +251,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && navigator.clipboard.writeText(utf32)}>
+        <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && copyToClipboard(utf32)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
           <ClipboardIcon />
         </button>
         <div className="flex-grow">
@@ -254,6 +263,8 @@ function IO() {
           />
         </div>
       </div>
+
+      {clipboardFeedback && <Popup message="Copied to Clipboard!" />}
     </>
   );
 }
