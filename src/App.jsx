@@ -1,15 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import Navbar from './components/Navbar'
-import Input from './components/Input'
 import Instructions from './components/Instructions'
 import IO from './components/IO'
 
 
 function App() {
-  const [input, setInput] = useState("")
-
   return (
     <div className="dark:bg-black dark:text-white h-screen overflow-auto flex flex-col">
       <Navbar/>

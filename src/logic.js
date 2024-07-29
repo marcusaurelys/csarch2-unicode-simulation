@@ -1,5 +1,13 @@
 /**
+ * This file contains all logic for converting the input to its proper output.
+ */
+
+
+/**
  * Checks if the input string is a valid unicode point
+ * Tests that the input string is 
+ *  1. Valid hex value
+ *  2. Within the range of unicode U+0000 to U+10FFFF
  * @param {string} unicode unicode point to be verified
  * @returns true if unicode is valid, false if unicode is invalid
  */
@@ -11,6 +19,7 @@ function checkValid(unicode) {
       return false
     }
   
+    //this converts the string into its hex value and checks if it is within the valid range.
     if (parseInt(unicode, 16) > 0x10FFFF || parseInt(unicode, 16) < 0) {
       return false
     }
@@ -57,35 +66,41 @@ function checkValid(unicode) {
     unicode = parseInt(unicode, 16).toString(16)
   
   
-  
-    if (unicode.length == 0) {
-      return '';
-    } else if (parseInt(unicode, 16) <= 0x7F) {
+    // case 1: the unicode can be encoded into one byte
+    if (parseInt(unicode, 16) <= 0x7F) {
       let binary = unicode.padStart(2, '0').toUpperCase();
-      res.push(binary.slice(0, 2))
-      res.push(binary.slice(2, 4))
-      return res.join(' ')
-    } else if (parseInt(unicode, 16) <= 0x7FF) {
+      return binary //early return as this is already the valid answer
+    }  
+    
+    // case 2: the unicode can be encoded into two bytes.
+    else if (parseInt(unicode, 16) <= 0x7FF) {
       let binary = parseInt(unicode, 16).toString(2).padStart(11, '0');
       res.push('110' + binary.slice(0, 5));
       res.push('10' + binary.slice(5));
-    } else if (parseInt(unicode, 16) <= 0xFFFF) {
+    } 
+    
+    //case 3: 3 bytes
+    else if (parseInt(unicode, 16) <= 0xFFFF) {
       let binary = parseInt(unicode, 16).toString(2).padStart(16, '0');
       res.push('1110' + binary.slice(0, 4));
       res.push('10' + binary.slice(4, 10));
       res.push('10' + binary.slice(10));
-    } else if (parseInt(unicode, 16) <= 0x1FFFFF) {
+    } 
+    
+    //case 3: 4 bytes
+    else if (parseInt(unicode, 16) <= 0x1FFFFF) {
       let binary = parseInt(unicode, 16).toString(2).padStart(21, '0');
       res.push('11110' + binary.slice(0, 3));
       res.push('10' + binary.slice(3, 9));
       res.push('10' + binary.slice(9, 15));
       res.push('10' + binary.slice(15));
-    } else {
+    } 
+    
+    else {
       return "invalid";
     }
   
-    let utf8 = res.map((binary) => binaryStringToHex(binary)).join(' ');
-  
+    let utf8 = res.map((binary) => binaryStringToHex(binary)).join(' ');  
     return utf8;
   }
   
@@ -108,9 +123,7 @@ function checkValid(unicode) {
   
     unicode = parseInt(unicode, 16).toString(16)
   
-    if (unicode.length == 0) {
-      return '';
-    } else if (parseInt(unicode, 16) <= 0xFFFF) {
+    if (parseInt(unicode, 16) <= 0xFFFF) {
       let res = []
       unicode = unicode.padStart(4, '0');
       res.push(unicode.slice(0, 2))
