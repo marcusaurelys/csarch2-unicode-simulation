@@ -10,7 +10,7 @@ function Instructions() {
       <ol type="1" className="list-disc pl-9">
         <li>
           {" "}
-          Input must be Unicode in hexadecimal.
+          Input must valid Unicode in hexadecimal. Input can also be a symbol in the symbol field 
         </li>
         <li> Outputs are generated as you type the input. </li>
         <li>
