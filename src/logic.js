@@ -9,19 +9,19 @@
  *  1. Valid hex value
  *  2. Within the range of unicode U+0000 to U+10FFFF
  * @param {string} unicode unicode point to be verified
- * @returns true if unicode is valid, false if unicode is invalid
+ * @returns {(string | boolean)} true if unicode is valid, 'invalid hex' or 'out of range' if unicode is invalid
  */
 function checkValid(unicode) {
 
     // this block will check if the string contains all valid hex digits 0-9, a-f.
-    const invalidHex = /[^1234567890abcdef]/i.test(unicode);
-    if (invalidHex) {
-      return false
+    const validHex = /^(-?[1234567890abcdef])*$/i.test(unicode);
+    if (!validHex) {
+      return 'INVALID HEX'
     }
   
     //this converts the string into its hex value and checks if it is within the valid range.
     if (parseInt(unicode, 16) > 0x10FFFF || parseInt(unicode, 16) < 0) {
-      return false
+      return 'OUT OF RANGE'
     }
   
     return true //return true if all tests are passed.
@@ -57,8 +57,8 @@ function checkValid(unicode) {
       return ''
     }
   
-    if (checkValid(unicode) == false) {
-      return "invalid";
+    if (checkValid(unicode) !== true) {
+      return checkValid(unicode);
     }
   
     let res = [];
@@ -116,8 +116,8 @@ function checkValid(unicode) {
       return ''
     }
   
-    if (checkValid(unicode) == false) {
-      return "invalid";
+    if (checkValid(unicode) !== true) {
+      return checkValid(unicode);
     }
   
   
@@ -157,8 +157,8 @@ function checkValid(unicode) {
       return ''
     }
   
-    if (!checkValid(unicode)) {
-      return 'invalid'
+    if (checkValid(unicode) !== true) {
+      return checkValid(unicode);
     }
   
     unicode = parseInt(unicode, 16).toString(16) //this will remove leading 0's
@@ -191,8 +191,8 @@ function checkValid(unicode) {
     }
   
     //Test the string for invalid input.
-    if(!checkValid(unicode)){
-      return 'invalid';
+    if (checkValid(unicode) !== true) {
+      return checkValid(unicode);
     }
   
   

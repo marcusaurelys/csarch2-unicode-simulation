@@ -33,6 +33,7 @@ function IO() {
               e.target.value.startsWith("U+") &&
               setInput(e.target.value.slice(2))
             }
+            invalid={utf8 == 'INVALID HEX' || utf8 == 'OUT OF RANGE'}
           />
           </div>
           <div>
@@ -48,14 +49,14 @@ function IO() {
 
       <span className="font-bold mb-3 text-3xl flex items-center gap-3">
         Output
-        {input.length != 0 && (utf8 != 'invalid' && utf16 != 'invalid' && utf32 != 'invalid') ? (
+        {input.length != 0 && (utf8 != 'INVALID HEX' && utf8 != 'OUT OF RANGE')  ? (
           <button title="Copy All" onClick={() => { input.length != 0 && copyToClipboard(formattedUTF(unicode, symbol, utf8, utf16, utf32)) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
             <ClipboardIcon />
           </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
       </span>
 
       <div className="flex flex-row items-center w-full">
-        {input.length != 0 && (utf8 != 'invalid') ? (
+        {input.length != 0 && (utf8 != 'INVALID HEX' && utf8 != 'OUT OF RANGE') ? (
           <button title="Copy UTF-8 Output" onClick={() => { input.length != 0 && copyToClipboard(utf8) }} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
             <ClipboardIcon />
           </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
@@ -70,7 +71,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        {input.length != 0 && (utf16 != 'invalid') ? (
+        {input.length != 0 && (utf16 != 'INVALID HEX' && utf16 != 'OUT OF RANGE') ? (
           <button title="Copy UTF-16 Output" onClick={() => input.length != 0 && copyToClipboard(utf16)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
             <ClipboardIcon />
           </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
@@ -85,7 +86,7 @@ function IO() {
       </div>
 
       <div className="flex flex-row items-center w-full">
-        {input.length != 0 && (utf32 != 'invalid') ? (
+        {input.length != 0 && (utf32 != 'INVALID HEX' && utf32 != 'OUT OF RANGE') ? (
           <button title="Copy UTF-32 Output" onClick={() => input.length != 0 && copyToClipboard(utf32)} className="flex items-center hover:text-gray-500 radius-md boder-radius-md">
             <ClipboardIcon />
           </button>) : <div className="text-gray-700"><ClipboardIcon /></div>}
