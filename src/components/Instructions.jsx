@@ -10,7 +10,7 @@ function Instructions() {
       <ol type="1" className="list-disc pl-9">
         <li>
           {" "}
-          Input must valid Unicode in hexadecimal. Input can also be a symbol in the symbol field. Valid Unicode range from U+0000 to U+10FFFF
+          Input must be valid Unicode in hexadecimal. Input can also be a symbol in the symbol field. The valid Unicode range is from U+0000 to U+10FFFF.
         </li>
         <li> Outputs are generated as you type the input. </li>
         <li>
