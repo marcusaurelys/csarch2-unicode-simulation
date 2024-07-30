@@ -34,7 +34,7 @@ function Input({
           value={value}
           onChange={onChange}
           className={
-            "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-white dark:bg-black dark:border-white h-10 overflow-hidden resize-none focus:ring-2" + (invalid ? ' ring-red-400 border-red-400 dark:border-red-400 text-red-400 dark:text-red-400' : ' focus:ring-black dark:focus:ring-white dark:focus:border-white focus:border-black ')}
+            "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none  dark:bg-black  h-10 overflow-hidden resize-none focus:ring-2" + (invalid ? ' ring-red-400 border-red-400 dark:ring-red-400  dark:border-red-400 text-red-400 dark:text-red-400' : ' focus:ring-black dark:focus:ring-white dark:focus:border-white focus:border-black dark:text-white dark:border-white')}
 
           disabled={disabled}
         />
