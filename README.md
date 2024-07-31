@@ -11,11 +11,11 @@ A React-based web application that implements Unicode to UTF encoding. The proje
 
  ## Demo video
 
- insert link
+ The demonstration video can be accessed through this YouTube link: https://youtu.be/1tD6RRJ8jcM
 
  ## Documentation/Analysis Writeup
 
- insert link
+ The write-up can also be accessed through this Google Drive link: https://drive.google.com/file/d/1lkRwus4X8Htc_N4nUVWddvyDhe7Sdlz6/view?usp=sharing
 
  ## Project Setup
  There are two ways to access this project:
